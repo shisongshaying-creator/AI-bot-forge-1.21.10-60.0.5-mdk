@@ -1,8 +1,11 @@
 package com.example.examplemod;
 
+import com.example.examplemod.ai.AutonomousBotEntity;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -14,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -36,6 +40,8 @@ public final class ExampleMod {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     // Create a Deferred Register to hold Items which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    // Create a Deferred Register to hold EntityTypes which will all be registered under the "examplemod" namespace
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
@@ -72,6 +78,13 @@ public final class ExampleMod {
                 output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 
+    // Creates a new entity type with the id "examplemod:autonomous_bot"
+    public static final RegistryObject<EntityType<AutonomousBotEntity>> AUTONOMOUS_BOT = ENTITY_TYPES.register("autonomous_bot",
+        () -> EntityType.Builder.of(AutonomousBotEntity::new, MobCategory.MISC)
+            .sized(0.9F, 1.8F)
+            .build("autonomous_bot")
+    );
+
     public ExampleMod(FMLJavaModLoadingContext context) {
         var modBusGroup = context.getModBusGroup();
 
@@ -82,6 +95,8 @@ public final class ExampleMod {
         BLOCKS.register(modBusGroup);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modBusGroup);
+        // Register the Deferred Register to the mod event bus so entity types get registered
+        ENTITY_TYPES.register(modBusGroup);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modBusGroup);
 
@@ -118,6 +133,14 @@ public final class ExampleMod {
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        }
+    }
+
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class ModEvents {
+        @SubscribeEvent
+        public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
+            event.put(AUTONOMOUS_BOT.get(), AutonomousBotEntity.createAttributes().build());
         }
     }
 }
