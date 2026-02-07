@@ -1,6 +1,6 @@
-package com.example.examplemod.ollama;
+package com.yourname.aibot.ollama;
 
-import com.example.examplemod.Config;
+import com.yourname.aibot.Config;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.IOException;

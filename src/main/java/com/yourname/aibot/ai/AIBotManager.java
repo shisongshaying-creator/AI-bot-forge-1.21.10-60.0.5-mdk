@@ -1,7 +1,7 @@
-package com.example.examplemod.ai;
+package com.yourname.aibot.ai;
 
-import com.example.examplemod.Config;
-import com.example.examplemod.ollama.OllamaClient;
+import com.yourname.aibot.Config;
+import com.yourname.aibot.ollama.OllamaClient;
 import com.mojang.logging.LogUtils;
 import java.util.HashMap;
 import java.util.List;

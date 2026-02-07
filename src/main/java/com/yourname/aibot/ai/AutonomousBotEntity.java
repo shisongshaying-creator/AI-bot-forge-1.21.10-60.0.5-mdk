@@ -1,4 +1,4 @@
-package com.example.examplemod.ai;
+package com.yourname.aibot.ai;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
