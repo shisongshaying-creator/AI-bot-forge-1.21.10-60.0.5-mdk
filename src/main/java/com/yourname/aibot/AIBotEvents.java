@@ -1,6 +1,6 @@
-package com.example.examplemod;
+package com.yourname.aibot;
 
-import com.example.examplemod.ai.AIBotManager;
+import com.yourname.aibot.ai.AIBotManager;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -11,7 +11,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = ExampleMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = AIBotMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class AIBotEvents {
     private AIBotEvents() {
     }

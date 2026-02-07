@@ -1,4 +1,4 @@
-package com.example.examplemod.ai;
+package com.yourname.aibot.ai;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
